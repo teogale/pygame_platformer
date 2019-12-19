@@ -26,10 +26,8 @@ class Player:
         if self._y <= (600-self.height):
             self.step_down()
 
-    def top_collision_player_layer(self, layer):
+    def bot_collision_player_layer(self, layer):
         for i in layer:
-            print(i.y, self._y + self.height, i.y + i.height)
-            print(i.x, self._x, i.x + i.width)
             if i.y <= (self._y + self.height) <= i.y + i.height and i.x <= self._x <= i.x + i.width:
                 return False
         return True

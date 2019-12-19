@@ -1,6 +1,6 @@
 import pygame as pg
 from player import Player
-from tile import Block, Ground, Crate
+from tile import *
 from pygame.locals import *
 
 class Game:
@@ -16,12 +16,19 @@ class Game:
 
 
         # layer
-        self.layer_background = []
+        self.layer_background = [Cloud(x=150, y=100),
+                                 Fence(x=70, y=450)]
+
         self.layer_middle = [Block(x=250, y=250),
                              Ground(x=0, y=500),
                              Ground(x=70, y=500),
-                             Crate(x=150, y=450)]
-        self.layer_front = []
+                             Bonus(x=150, y=250),
+                             Bridge(x=140, y=500),
+                             Bridge(x=210, y=500),
+                             GoldCoin(x=350, y=430)
+                             ]
+
+        self.layer_front = [Grass(x=0, y=460)]
         # player area
         self.player = Player(x=250, y=250)
         # ennemy area
@@ -46,7 +53,7 @@ class Game:
                         self.player.step_up()
 
             self.show()
-            if self.player.top_collision_player_layer(layer=self.layer_middle):
+            if self.player.bot_collision_player_layer(layer=self.layer_middle):
                 self.player.gravity()
             self.frame_rate.tick(self.clock)
             pg.display.update()
