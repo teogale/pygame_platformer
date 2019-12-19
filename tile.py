@@ -1,15 +1,15 @@
 import pygame as pg
+import img_loader
+
 
 class Tile:
-
-    def load(self, path):
-        return pg.image.load(path)
+    pass
 
 
 class Block(Tile):
 
     def __init__(self, x, y,):
-        self.sprite = self.load(path="png/block.png")
+        self.sprite, self.height, self.width = img_loader.load_img(path="png/block.png")
         self.x = x
         self.y = y
 
@@ -20,10 +20,15 @@ class Block(Tile):
 class Ground(Tile):
 
     def __init__(self, x, y, ):
-        self.sprite = self.load(path="png/ground.png")
+        self.sprite, self.height, self.width = img_loader.load_img(path="png/ground.png")
         self.x = x
         self.y = y
 
 
+class Crate(Tile):
 
+    def __init__(self, x, y,):
+        self.sprite, self.height, self.width = img_loader.load_img(path="png/crate.png")
+        self.x = x
+        self.y = y
 
