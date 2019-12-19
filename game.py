@@ -3,18 +3,17 @@ from player import Player
 from tile import *
 from pygame.locals import *
 
+
 class Game:
 
     def __init__(self):
 
-        #pygame basic property
+        # pygame basic property
         self.weight = 600
         self.height = 600
         self.screen = pg.display.set_mode([self.weight, self.height])
         self.frame_rate = pg.time.Clock()
         self.clock = 60
-
-
         # layer
         self.layer_background = [Cloud(x=150, y=100),
                                  Fence(x=70, y=450)]
@@ -25,7 +24,9 @@ class Game:
                              Bonus(x=150, y=250),
                              Bridge(x=140, y=500),
                              Bridge(x=210, y=500),
-                             GoldCoin(x=350, y=430)
+                             GoldCoin(x=350, y=430),
+                             Spikes(x=270, y=530),
+                             Spikes(x=340, y=530)
                              ]
 
         self.layer_front = [Grass(x=0, y=460)]
@@ -51,12 +52,16 @@ class Game:
                         self.player.step_right()
                     elif event.key == K_UP:
                         self.player.step_up()
+                    elif event.key == K_SPACE:
+                        if not self.player.jump:
+                            self.player.jump_method(self.layer_middle)
+
 
             self.show()
-            if self.player.bot_collision_player_layer(layer=self.layer_middle):
-                self.player.gravity()
+            self.layer_middle = self.player.gravity(layer=self.layer_middle)
             self.frame_rate.tick(self.clock)
             pg.display.update()
+
 
     def show(self):
         self.screen.fill((0, 0, 0))

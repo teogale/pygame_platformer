@@ -1,5 +1,6 @@
 import pygame as pg
 
+
 def load_img(path):
     loaded_img = pg.image.load(path)
 
