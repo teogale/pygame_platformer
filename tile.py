@@ -95,3 +95,24 @@ class GoldCoin(Tile):
         self.sprite, self.height, self.width = img_loader.load_img(path="png/coin_gold.png")
         self.x = x
         self.y = y
+
+    def behavior_on_hit(self,layer, j):
+        del layer[j]
+        return layer
+
+
+
+class Bush(Tile):
+
+    def __init__(self, x, y):
+        self.sprite, self.height, self.width = img_loader.load_img(path="png/bush.png")
+        self.x = x
+        self.y = y
+
+
+class Spikes(Tile):
+
+    def __init__(self, x, y):
+        self.sprite, self.height, self.width = img_loader.load_img(path="png/spikes.png")
+        self.x = x
+        self.y = y
