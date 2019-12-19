@@ -1,7 +1,7 @@
 import pygame as pg
 import sys
 from pygame.locals import *
-from tile import
+from game import Game
 
 pg.init()
 weight = 600
@@ -18,7 +18,7 @@ while boucle_jeu:
         if event.type == QUIT:
             boucle_jeu = False
 
-
+    Game(screen=screen).show()
 
     frame_rate.tick(clock)
     pg.display.update()
