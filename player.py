@@ -7,7 +7,7 @@ class Player:
         self.sprite, self.height, self.width = img_loader.load_img("png/character/walk/walk0001.png")
         self._x = x
         self._y = y
-        self._step = 3
+        self._step = 5
         self.life = 100
 
         # jump animation
@@ -34,15 +34,15 @@ class Player:
             var, layer = self.bot_collision_player_layer(layer=layer)
             if var:
                 self.step_down()
-        elif self.jump == True:
-            if self.jump_frame <= 30:
+        elif self.jump:
+            if self.jump_frame <= 15:
                 self.step_up()
                 self.jump_frame += 1
             else:
                 self.jump = False
                 self.jump_frame = 0
-
         return layer
+
     def bot_collision_player_layer(self, layer):
         for j, i in enumerate(layer):
             if i.y <= (self._y + self.height) <= i.y + i.height and i.x <= self._x + self.width/2 <= i.x + i.width:
@@ -55,6 +55,10 @@ class Player:
     def jump_method(self, layer):
         self.jump = True
 
+
+    def collision_top_player(self,object):
+        if
+        return False
 
 
 

@@ -8,7 +8,7 @@ class Tile:
 
 class Block(Tile):
 
-    def __init__(self, x, y,):
+    def __init__(self, x, y, ):
         self.sprite, self.height, self.width = img_loader.load_img(path="png/block.png")
         self.x = x
         self.y = y
@@ -27,7 +27,7 @@ class Ground(Tile):
 
 class Crate(Tile):
 
-    def __init__(self, x, y,):
+    def __init__(self, x, y, ):
         self.sprite, self.height, self.width = img_loader.load_img(path="png/crate.png")
         self.x = x
         self.y = y
@@ -35,7 +35,7 @@ class Crate(Tile):
 
 class Bonus(Tile):
 
-    def __init__(self, x, y,):
+    def __init__(self, x, y, ):
         self.sprite, self.height, self.width = img_loader.load_img(path="png/bonus.png")
         self.x = x
         self.y = y
@@ -80,6 +80,23 @@ class Cloud(Tile):
         self.x = x
         self.y = y
 
+        self.animation_frame = 0
+        # direction cloud True right, False left
+        self.direction_cloud = True
+
+    def behavior_animation(self, layer, player):
+
+        self.animation_frame += 1
+        if self.animation_frame <= 120:
+            if self.direction_cloud:
+                self.x += 1
+            else:
+                self.x -= 1
+        else:
+            self.direction_cloud = not self.direction_cloud
+            self.animation_frame = 0
+        return layer, player
+
 
 class Fence(Tile):
 
@@ -96,10 +113,9 @@ class GoldCoin(Tile):
         self.x = x
         self.y = y
 
-    def behavior_on_hit(self,layer, j):
+    def behavior_on_hit(self, layer, j):
         del layer[j]
         return layer
-
 
 
 class Bush(Tile):
