@@ -7,9 +7,9 @@ class Tile:
 
 
 class Block(Tile):
+    sprite, height, width = img_loader.load_img(path="png/block.png")
 
     def __init__(self, x, y, ):
-        self.sprite, self.height, self.width = img_loader.load_img(path="png/block.png")
         self.x = x
         self.y = y
 
@@ -18,65 +18,66 @@ class Block(Tile):
 
 
 class Ground(Tile):
+    sprite, height, width = img_loader.load_img(path="png/ground.png")
 
     def __init__(self, x, y, ):
-        self.sprite, self.height, self.width = img_loader.load_img(path="png/ground.png")
         self.x = x
         self.y = y
 
 
 class Crate(Tile):
+    sprite, height, width = img_loader.load_img(path="png/crate.png")
 
     def __init__(self, x, y, ):
-        self.sprite, self.height, self.width = img_loader.load_img(path="png/crate.png")
         self.x = x
         self.y = y
 
 
 class Bonus(Tile):
+    sprite, height, width = img_loader.load_img(path="png/bonus.png")
 
     def __init__(self, x, y, ):
-        self.sprite, self.height, self.width = img_loader.load_img(path="png/bonus.png")
         self.x = x
         self.y = y
 
 
 class BonusUsed(Tile):
+    sprite, height, width = img_loader.load_img(path="png/bonus_used.png")
 
     def __init__(self, x, y):
-        self.sprite, self.height, self.width = img_loader.load_img(path="png/bonus_used.png")
         self.x = x
         self.y = y
 
 
 class Bridge(Tile):
+    sprite, height, width = img_loader.load_img(path="png/bridge.png")
 
     def __init__(self, x, y):
-        self.sprite, self.height, self.width = img_loader.load_img(path="png/bridge.png")
         self.x = x
         self.y = y
 
 
 class GroundCave(Tile):
+    sprite, height, width = img_loader.load_img(path="png/ground_cave.png")
 
     def __init__(self, x, y):
-        self.sprite, self.height, self.width = img_loader.load_img(path="png/ground_cave.png")
         self.x = x
         self.y = y
 
 
 class Grass(Tile):
+    sprite, height, width = img_loader.load_img(path="png/grass.png")
 
     def __init__(self, x, y):
-        self.sprite, self.height, self.width = img_loader.load_img(path="png/grass.png")
         self.x = x
         self.y = y
 
 
 class Cloud(Tile):
+    sprite, height, width = img_loader.load_img(path="png/cloud_1.png")
 
     def __init__(self, x, y):
-        self.sprite, self.height, self.width = img_loader.load_img(path="png/cloud_1.png")
+
         self.x = x
         self.y = y
 
@@ -99,36 +100,81 @@ class Cloud(Tile):
 
 
 class Fence(Tile):
+    sprite, height, width = img_loader.load_img(path="png/fence.png")
 
     def __init__(self, x, y):
-        self.sprite, self.height, self.width = img_loader.load_img(path="png/fence.png")
         self.x = x
         self.y = y
 
 
 class GoldCoin(Tile):
+    sprite, height, width = img_loader.load_img(path="png/coin_gold.png")
 
     def __init__(self, x, y):
-        self.sprite, self.height, self.width = img_loader.load_img(path="png/coin_gold.png")
         self.x = x
         self.y = y
 
     def behavior_on_hit(self, layer, j):
-        del layer[j]
+        del layer[1][j]
         return layer
 
 
 class Bush(Tile):
+    sprite, height, width = img_loader.load_img(path="png/bush.png")
 
     def __init__(self, x, y):
-        self.sprite, self.height, self.width = img_loader.load_img(path="png/bush.png")
         self.x = x
         self.y = y
 
 
 class Spikes(Tile):
+    sprite, height, width = img_loader.load_img(path="png/spikes.png")
 
     def __init__(self, x, y):
-        self.sprite, self.height, self.width = img_loader.load_img(path="png/spikes.png")
+        self.x = x
+        self.y = y
+
+
+class Water(Tile):
+    sprite, height, width = img_loader.load_img(path="png/water.png")
+
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+
+class Plank(Tile):
+    sprite, height, width = img_loader.load_img(path="png/plank.png")
+
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+
+class KeyRed(Tile):
+    sprite, height, width = img_loader.load_img(path="png/key_red.png")
+
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def behavior_on_hit(self, layer, j):
+        del layer[1][j]
+        layer[0].append(Mushroom(self.x+20, self.y++35))
+        return layer
+
+
+class Mushroom(Tile):
+    sprite, height, width = img_loader.load_img(path="png/shroom.png")
+
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+
+class HillLong(Tile):
+    sprite, height, width = img_loader.load_img(path="png/hill_long.png")
+
+    def __init__(self, x, y):
         self.x = x
         self.y = y
