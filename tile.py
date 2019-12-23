@@ -114,9 +114,9 @@ class GoldCoin(Tile):
         self.x = x
         self.y = y
 
-    def behavior_on_hit(self, layer, j):
+    def behavior_on_hit(self, layer, j, player):
         del layer[1][j]
-        return layer
+        return layer, player
 
 
 class Bush(Tile):
@@ -134,6 +134,9 @@ class Spikes(Tile):
         self.x = x
         self.y = y
 
+    def behavior_on_hit(self, layer, j, player):
+        player.life -= 20
+        return layer, player
 
 class Water(Tile):
     sprite, height, width = img_loader.load_img(path="png/water.png")
@@ -158,10 +161,10 @@ class KeyRed(Tile):
         self.x = x
         self.y = y
 
-    def behavior_on_hit(self, layer, j):
+    def behavior_on_hit(self, layer, j, player):
         del layer[1][j]
         layer[0].append(Mushroom(self.x+20, self.y++35))
-        return layer
+        return layer, player
 
 
 class Mushroom(Tile):
@@ -174,6 +177,15 @@ class Mushroom(Tile):
 
 class HillLong(Tile):
     sprite, height, width = img_loader.load_img(path="png/hill_long.png")
+
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+
+class BackgroundForest(Tile):
+    sprite, height, width = img_loader.load_img(path="png/background/background_forest.png",
+                                                rescale=(600, 600))
 
     def __init__(self, x, y):
         self.x = x

@@ -1,5 +1,5 @@
 import img_loader
-
+import pygame as pg
 
 class Player:
 
@@ -9,11 +9,9 @@ class Player:
         self._y = y
         self._step = 5
         self.life = 100
-
         # jump animation
         self.jump = False
         self.jump_frame = 0
-
         # count number of coin
         self.coin_count = 0
 
@@ -37,7 +35,10 @@ class Player:
         return layer
 
     def gravity(self, layer):
-        if not self.jump and self._y <= (600 - self.height):
+        bottom_screen_limit = 600 - self.height
+
+
+        if not self.jump and self._y <= (bottom_screen_limit):
             var, layer = self.bot_collision_player_layer(layer=layer)
             if var:
                 layer = self.step_down(layer)
@@ -51,12 +52,14 @@ class Player:
         return layer
 
     def bot_collision_player_layer(self, layer):
+        mask_player = pg.mask.from_surface(self.sprite)
 
         for j, i in enumerate(layer[1]):
-            if i.y <= (self._y + self.height) <= i.y + i.height and i.x <= self._x + self.width / 2 <= i.x + i.width:
-                if hasattr(i, 'behavior_on_hit'):
-                    layer = i.behavior_on_hit(layer, j)
+            mask_object = pg.mask.from_surface(i.sprite)
 
+            if pg.sprite.spritecollide(mask_player, mask_object, False, pg.sprite.collide_mask):
+                if hasattr(i, 'behavior_on_hit'):
+                    layer, self = i.behavior_on_hit(layer, j, player=self)
                 return False, layer
         return True, layer
 
@@ -71,3 +74,6 @@ class Player:
 
     def max_pos_player(self):
         self._x = 600 - self.width
+
+    def collission_left(self):
+        pass
