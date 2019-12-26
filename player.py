@@ -1,6 +1,7 @@
 import img_loader
 import pygame as pg
 
+
 class Player:
 
     def __init__(self, x, y):
@@ -14,6 +15,12 @@ class Player:
         self.jump_frame = 0
         # count number of coin
         self.coin_count = 0
+
+        self.bottom_screen_limit = 600 - self.height
+
+
+    def set_step(self, x):
+        self._step = x
 
     def step_down(self, layer):
         self._y += self._step
@@ -35,10 +42,8 @@ class Player:
         return layer
 
     def gravity(self, layer):
-        bottom_screen_limit = 600 - self.height
 
-
-        if not self.jump and self._y <= (bottom_screen_limit):
+        if not self.jump and self._y <= self.bottom_screen_limit:
             var, layer = self.bot_collision_player_layer(layer=layer)
             if var:
                 layer = self.step_down(layer)
@@ -52,12 +57,9 @@ class Player:
         return layer
 
     def bot_collision_player_layer(self, layer):
-        mask_player = pg.mask.from_surface(self.sprite)
 
         for j, i in enumerate(layer[1]):
-            mask_object = pg.mask.from_surface(i.sprite)
-
-            if pg.sprite.spritecollide(mask_player, mask_object, False, pg.sprite.collide_mask):
+            if i.y <= (self._y + self.height) <= i.y + i.height and i.x <= self._x + self.width / 2 <= i.x + i.width:
                 if hasattr(i, 'behavior_on_hit'):
                     layer, self = i.behavior_on_hit(layer, j, player=self)
                 return False, layer
@@ -66,8 +68,7 @@ class Player:
     def jump_method(self, layer):
         self.jump = True
 
-    def collision_top_player(self, object):
-        pass
+
 
     def min_pos_player(self):
         self._x = 0 + self.width
@@ -75,5 +76,10 @@ class Player:
     def max_pos_player(self):
         self._x = 600 - self.width
 
-    def collission_left(self):
+    def collision_top(self, object):
         pass
+
+    def collision_left(self):
+        pass
+
+

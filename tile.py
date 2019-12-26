@@ -40,6 +40,10 @@ class Bonus(Tile):
         self.x = x
         self.y = y
 
+    def behavior_on_hit(self, layer, j, player):
+        layer[1][j] = BonusUsed(x=self.x, y=self.y)
+        return layer, player
+
 
 class BonusUsed(Tile):
     sprite, height, width = img_loader.load_img(path="png/bonus_used.png")
@@ -135,8 +139,10 @@ class Spikes(Tile):
         self.y = y
 
     def behavior_on_hit(self, layer, j, player):
-        player.life -= 20
+        if player.life > 0:
+            player.life -= 20
         return layer, player
+
 
 class Water(Tile):
     sprite, height, width = img_loader.load_img(path="png/water.png")
@@ -163,7 +169,9 @@ class KeyRed(Tile):
 
     def behavior_on_hit(self, layer, j, player):
         del layer[1][j]
-        layer[0].append(Mushroom(self.x+20, self.y++35))
+        object = Mushroom(self.x + 20, self.y + +35)
+        object.animation_bool = True
+        layer[1].append(object)
         return layer, player
 
 
@@ -173,6 +181,17 @@ class Mushroom(Tile):
     def __init__(self, x, y):
         self.x = x
         self.y = y
+        self.animation_bool = False
+
+    def behavior_on_hit(self, layer, j, player):
+        del layer[1][j]
+        player.life += 20
+        return layer, player
+
+    def behavior_animation(self, layer, player):
+        if self.animation_bool:
+            self.x += 1
+        return layer, player
 
 
 class HillLong(Tile):

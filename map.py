@@ -1,15 +1,16 @@
 from tile import *
+
+
 class Map:
 
     def __init__(self):
-
 
         ref_w = Ground.width
         ref_h = Ground.height
         self.map = [
             [
                 [
-                    BackgroundForest(0,0),
+                    BackgroundForest(0, 0),
                     Cloud(x=150, y=100),
                     Fence(x=70, y=ref_w * 7 + 20)
                 ],
@@ -22,12 +23,13 @@ class Map:
                     Bridge(x=ref_w * 3, y=ref_h * 8),
                     GoldCoin(x=ref_w * 5, y=ref_h * 7),
                     Spikes(x=ref_w * 4, y=ref_h * 8 + 20),
-                    Plank(x=int(ref_w * 4.5),y=ref_h*7+35),
+                    Plank(x=int(ref_w * 4.5), y=ref_h * 7 + 35),
                     Spikes(x=ref_w * 5, y=ref_h * 8 + 20),
                     GoldCoin(x=ref_w * 1, y=ref_h * 7),
                     Bridge(x=ref_w * 6, y=ref_h * 8),
                     Bridge(x=ref_w * 7, y=ref_h * 8),
-                    Bridge(x=ref_w * 8, y=ref_h * 8)
+                    Bridge(x=ref_w * 8, y=ref_h * 8),
+                    Mushroom(x=ref_w*3, y =ref_h * 7+35)
                 ],
 
                 [
@@ -36,7 +38,8 @@ class Map:
             ],
             [
                 [
-                    Fence(x=ref_w * 5,y=ref_h*7+20)
+                    BackgroundForest(0, 0),
+                    Fence(x=ref_w * 5, y=ref_h * 7 + 20)
                 ],
                 [
                     Bridge(x=ref_w * 0, y=ref_h * 8),

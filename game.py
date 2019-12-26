@@ -41,15 +41,18 @@ class Game:
                         if not self.player.jump:
                             self.player.jump_method(self.map.region)
 
+            # collision player to object in self.map
+
             # every frame
             self.show()
             self.map.region = self.player.gravity(layer=self.map.region)
             self.map.region, self.player = self.animation_for_layer(self.map.region,
-                                                                    self.player)
+                                                        self.player)
             # region change
             self.player = self.map.region_changes(player=self.player)
+            
             if self.player.life <= 0:
-                print("dead")
+                print(self.player.life)
 
             self.frame_rate.tick(self.clock)
             pg.display.update()
@@ -70,3 +73,6 @@ class Game:
                 if hasattr(i, "behavior_animation"):
                     i.behavior_animation(layer, player)
         return layer, player
+
+    def object_collision_to_player(self):
+        pass
