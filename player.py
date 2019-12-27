@@ -13,14 +13,23 @@ class Player:
         # jump animation
         self.jump = False
         self.jump_frame = 0
+        self.fall_frame = 0
         # count number of coin
         self.coin_count = 0
 
         self.bottom_screen_limit = 600 - self.height
 
+    def step_jump(self):
+        self._y += (self.jump_frame - 12) * 2.2
+
+    def step_fall(self):
+        self._y += self.fall_frame * 0.8
 
     def set_step(self, x):
         self._step = x
+
+    def reset_step(self):
+        self._step = 5
 
     def step_down(self, layer):
         self._y += self._step
@@ -42,18 +51,20 @@ class Player:
         return layer
 
     def gravity(self, layer):
+        var, layer = self.bot_collision_player_layer(layer=layer)
 
-        if not self.jump and self._y <= self.bottom_screen_limit:
-            var, layer = self.bot_collision_player_layer(layer=layer)
-            if var:
-                layer = self.step_down(layer)
+        if not self.jump and self._y <= self.bottom_screen_limit and var:
+            self.step_fall()
+            if self.fall_frame <= 12:
+                self.fall_frame += 1
         elif self.jump:
-            if self.jump_frame <= 15:
-                self.step_up(layer)
+            if self.jump_frame <= 12:
+                self.step_jump()
                 self.jump_frame += 1
             else:
                 self.jump = False
                 self.jump_frame = 0
+                self.fall_frame = 0
         return layer
 
     def bot_collision_player_layer(self, layer):
@@ -67,8 +78,6 @@ class Player:
 
     def jump_method(self, layer):
         self.jump = True
-
-
 
     def min_pos_player(self):
         self._x = 0 + self.width

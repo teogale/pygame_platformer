@@ -27,19 +27,31 @@ class Game:
         boucle_jeu = True
         while boucle_jeu:
 
+
             for event in pg.event.get():
                 if event.type == QUIT:
                     boucle_jeu = False
-                if event.type == KEYDOWN:
-                    if event.key == K_LEFT:
-                        self.map.region = self.player.step_left(self.map.region)
-                    elif event.key == K_RIGHT:
-                        self.map.region = self.player.step_right(self.map.region)
-                    elif event.key == K_UP:
-                        self.map.region = self.player.step_up(self.map.region)
-                    elif event.key == K_SPACE:
-                        if not self.player.jump:
-                            self.player.jump_method(self.map.region)
+                #
+                # if event.type == KEYDOWN:
+                #     if event.key == K_LEFT:
+                #         self.map.region = self.player.step_left(self.map.region)
+                #     elif event.key == K_RIGHT:
+                #         self.map.region = self.player.step_right(self.map.region)
+                #     elif event.key == K_UP:
+                #         self.map.region = self.player.step_up(self.map.region)
+                #     elif event.key == K_SPACE:
+                #         if not self.player.jump:
+                #             self.player.jump_method(self.map.region)
+
+            # movement test
+            key_pressed = pg.key.get_pressed()
+            if key_pressed[K_LEFT]:
+                self.map.region = self.player.step_left(self.map.region)
+            if key_pressed[K_RIGHT]:
+                self.map.region = self.player.step_right(self.map.region)
+            if key_pressed[K_SPACE]:
+                if not self.player.jump:
+                    self.player.jump_method(self.map.region)
 
             # collision player to object in self.map
 
@@ -47,12 +59,11 @@ class Game:
             self.show()
             self.map.region = self.player.gravity(layer=self.map.region)
             self.map.region, self.player = self.animation_for_layer(self.map.region,
-                                                        self.player)
+                                                                    self.player)
             # region change
             self.player = self.map.region_changes(player=self.player)
-            
-            if self.player.life <= 0:
-                print(self.player.life)
+
+            # test area
 
             self.frame_rate.tick(self.clock)
             pg.display.update()
